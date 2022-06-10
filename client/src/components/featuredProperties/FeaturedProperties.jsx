@@ -3,7 +3,7 @@ import useFetch from '../../hooks/useFetch';
 import { FEATURED_IMG as images } from '../../constant/images';
 
 const FeaturedProperties = () => {
-  const { data, loading, error, reFetch } = useFetch('/hotels?featured=true&limit=4');
+  const { data, loading } = useFetch('/hotels?featured=true&limit=4');
 
   return (
     <div className="fp">
