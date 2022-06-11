@@ -15,7 +15,7 @@
     flex: 1;
     background-color: #febb02;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 3px;
     position: sticky;
     top: 10px;
     height: max-content;
@@ -28,6 +28,7 @@
 }
 
 .lsItem {
+    font-size: 14px;
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -35,12 +36,14 @@
 }
 
 .lsItem > label {
+    color: #333;
     font-size: 12px;
 }
 
 .lsItem > input {
     height: 30px;
     border: none;
+    border-radius: 2px;
     padding: 5px;
 }
 
@@ -51,6 +54,10 @@
     display: flex;
     align-items: center;
     cursor: pointer;
+}
+
+.lsItem .date-range {
+    border-radius: 2px;
 }
 
 .lsOptions {
@@ -69,16 +76,17 @@
     width: 50px;
 }
 
-.listSearch > button {
-    padding: 10px;
+.listResult {
+    flex: 3;
+}
+
+.listSearch .searchBtn {
+    border-radius: 2px;
+    padding: 12px;
     background-color: #0071c2;
     color: white;
     border: none;
     width: 100%;
     font-weight: 500;
     cursor: pointer;
-}
-
-.listResult {
-    flex: 3;
 }

@@ -1,12 +1,13 @@
 import './featured.css';
 import useFetch from '../../hooks/useFetch';
+import Loading from '../loading/Loading';
 
 const Featured = () => {
   const { data, loading } = useFetch('/hotels/countByCity?cities=berlin,madrid,london');
   return (
     <div className="featured">
       {loading
-        ? 'Loading, please waiting...'
+        ? <Loading />
         : (
           <>
             <div className="featuredItem">
@@ -43,7 +44,6 @@ const Featured = () => {
                 <h2>{data[2]} properties</h2>
               </div>
             </div>
-
           </>
         )
       }
