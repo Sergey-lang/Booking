@@ -16,24 +16,19 @@ import { format } from 'date-fns';
 import { SearchContext } from '../../context/SearchContext';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
+import { SEARCH } from '../../constant/actions';
 
 const Header = ({ type }) => {
   const { user } = useContext(AuthContext);
   const [destination, setDestination] = useState('');
   const [openDate, setOpenDate] = useState(false);
-  const [dates, setDates] = useState([
-    {
-      startDate: new Date(),
-      endDate: new Date(),
-      key: 'selection',
-    },
-  ]);
   const [openOptions, setOpenOptions] = useState(false);
   const [options, setOptions] = useState({
     adult: 1,
     children: 0,
     room: 1,
   });
+  const [dates, setDates] = useState([{ startDate: new Date(), endDate: new Date(), key: 'selection', }]);
 
   const navigate = useNavigate();
 
@@ -49,7 +44,7 @@ const Header = ({ type }) => {
   const { dispatch } = useContext(SearchContext);
 
   const handleSearch = () => {
-    dispatch({ type: 'NEW_SEARCH', payload: { destination, dates, options } });
+    dispatch({ type: SEARCH, payload: { destination, dates, options } });
     navigate('/hotels', { state: { destination, dates, options } });
   };
 

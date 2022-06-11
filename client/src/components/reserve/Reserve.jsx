@@ -10,7 +10,9 @@ import { getDatesInRange } from '../../utils';
 
 const Reserve = ({ setOpen, hotelId }) => {
   const [selectedRooms, setSelectedRooms] = useState([]);
+
   const { data } = useFetch(`/hotels/room/${hotelId}`);
+
   const { dates } = useContext(SearchContext);
 
   const allDates = getDatesInRange(dates[0].startDate, dates[0].endDate);
