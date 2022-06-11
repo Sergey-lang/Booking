@@ -23,12 +23,17 @@
 }
 
 .headerListItem {
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
 .headerListItem.active {
+    background-color: hsla(0,0%,100%,.1);
     border: 1px solid white;
     padding: 10px;
     border-radius: 20px;
@@ -41,7 +46,6 @@
 .headerBtn {
     background-color: #0071c2;
     color: white;
-    font-weight: 500;
     border: none;
     padding: 10px;
     cursor: pointer;

@@ -1,6 +1,7 @@
 import './featuredProperties.css';
 import useFetch from '../../hooks/useFetch';
 import { FEATURED_IMG as images } from '../../constant/images';
+import Loading from '../loading/Loading';
 
 const FeaturedProperties = () => {
   const { data, loading } = useFetch('/hotels?featured=true&limit=4');
@@ -8,7 +9,7 @@ const FeaturedProperties = () => {
   return (
     <div className="fp">
       {loading
-        ? 'Loading, please waiting...'
+        ? <Loading />
         : (
           <>
             {data.map((item, idx) => (

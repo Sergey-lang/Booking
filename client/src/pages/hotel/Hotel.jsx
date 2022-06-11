@@ -10,7 +10,7 @@ import {
   faCircleXmark,
   faLocationDot,
 } from '@fortawesome/free-solid-svg-icons';
-import { useContext, useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
 import useFetch from '../../hooks/useFetch';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { HOTEL_PHOTOS as photos } from '../../constant/images';
@@ -18,6 +18,7 @@ import { SearchContext } from '../../context/SearchContext';
 import { dayDifference } from '../../utils';
 import { AuthContext } from '../../context/AuthContext';
 import Reserve from '../../components/reserve/Reserve';
+import Loading from '../../components/loading/Loading';
 
 const Hotel = () => {
   const location = useLocation();
@@ -27,11 +28,12 @@ const Hotel = () => {
   const [open, setOpen] = useState(false);
   const [isOpenModal, setOpenModal] = useState(false);
 
-  const { data, loading, error, reFetch } = useFetch(`/hotels/find/${id}`);
+  const { data, loading } = useFetch(`/hotels/find/${id}`);
   const { user } = useContext(AuthContext);
 
   const { dates, options } = useContext(SearchContext);
-  const days = dayDifference(dates[0].endDate, dates[0].startDate);
+
+  const days = useMemo(() => dates.length && dayDifference(dates[0].endDate, dates[0].startDate), [data])
 
   const handleOpen = (i) => {
     setSlideNumber(i);
@@ -64,7 +66,7 @@ const Hotel = () => {
       <Header type="list" />
       {
         loading
-          ? 'Loading, please waiting...'
+          ? <Loading />
           : (
             <div className="hotelContainer">
               {open && (
