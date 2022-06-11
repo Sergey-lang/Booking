@@ -1,4 +1,5 @@
 import { createContext, useReducer } from 'react';
+import { RESET_SEARCH, SEARCH } from '../constant/actions';
 
 const INITIAL_STATE = {
   city: undefined,
@@ -14,10 +15,10 @@ export const SearchContext = createContext(INITIAL_STATE);
 
 const SearchReducer = (state, action) => {
   switch (action.type) {
-    case 'NEW_SEARCH': {
+    case SEARCH: {
       return action.payload;
     }
-    case 'RESET_SEARCH': {
+    case RESET_SEARCH: {
       return INITIAL_STATE;
     }
     default: {
