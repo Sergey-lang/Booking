@@ -1,11 +1,37 @@
 import './new.scss';
-import Sidebar from '../../components/sidebar/Sidebar';
-import Navbar from '../../components/navbar/Navbar';
+import Sidebar from '../../../components/sidebar/Sidebar';
+import Navbar from '../../../components/navbar/Navbar';
 import DriveFolderUploadOutlinedIcon from '@mui/icons-material/DriveFolderUploadOutlined';
 import { useState } from 'react';
+import axios from 'axios';
+import { createUploadData } from '../../../utils';
+import { BASE_CLOUD_UPLOAD_URL } from '../../../constant/cloudinary';
 
 const New = ({ inputs, title }) => {
   const [file, setFile] = useState('');
+  const [info, setInfo] = useState('');
+
+  const handleChange = ({ target: { value, name } }) => {
+    setInfo((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSend = async (e) => {
+    e.preventDefault();
+    const data = createUploadData(file)
+    try {
+      const uploadResponse = await axios.post(BASE_CLOUD_UPLOAD_URL, data);
+      const { url } = uploadResponse.data;
+
+      const newUser = {
+        ...info,
+        img: url
+      };
+
+      await axios.post('/auth/register', newUser);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <div className="new">
@@ -43,11 +69,16 @@ const New = ({ inputs, title }) => {
               {inputs.map((input) => (
                 <div className="formInput" key={input.id}>
                   <label>{input.label}</label>
-                  <input type={input.type} placeholder={input.placeholder} />
+                  <input
+                    name={input.id}
+                    type={input.type}
+                    placeholder={input.placeholder}
+                    onChange={handleChange}
+                  />
                 </div>
               ))}
-              <div>
-                <button style={{ width: '40%' }}>Send</button>
+              <div style={{ width: '40%' }}>
+                <button onClick={handleSend}>Send</button>
               </div>
             </form>
           </div>
