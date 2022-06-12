@@ -1,9 +1,9 @@
 import './login.css';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import axios from 'axios';
 import { LOGIN_FAILURE, LOGIN_START, LOGIN_SUCCESS } from '../../constant/actions';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ const Login = () => {
 
     try {
       const response = await axios.post('/auth/login', credentials);
-      dispatch({ type: LOGIN_SUCCESS, payload: response.data });
+      dispatch({ type: LOGIN_SUCCESS, payload: response.data.details });
       navigate('/');
     } catch (e) {
       dispatch({ type: LOGIN_FAILURE, payload: e.response.data });
